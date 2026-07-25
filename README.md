@@ -1,66 +1,62 @@
-# Obscura Installer for Termux
+# Obscura Termux Installer
 
-[Obscura](https://github.com/h4ckf0r0day/obscura) — a headless browser for AI agents and web scraping — packaged for Termux on Android.
+[Obscura](https://github.com/h4ckf0r0day/obscura) — 一个面向 AI Agent 和网页抓取的无头浏览器，本脚本将其打包适配为 Termux 环境。
 
-This installer uses the **upstream glibc binary directly** from the official Obscura repository, with a lightweight glibc wrapper to ensure compatibility with Termux's Bionic environment.
+本安装器直接使用 **Obscura 官方仓库的 glibc 预编译二进制**，通过 glibc wrapper 脚本解决 Termux Bionic 兼容性问题。
 
-## Quick Install
+## 安装
 
 ```bash
 bash -c "$(curl -L https://raw.githubusercontent.com/zexjpg/obscura-termux-install/main/install-obscura.sh)"
 ```
 
-## Uninstall
+## 卸载
 
 ```bash
 bash -c "$(curl -L https://raw.githubusercontent.com/zexjpg/obscura-termux-install/main/install-obscura.sh)" remove
 ```
 
-## How It Works
+## 工作原理
 
-Termux uses Android's Bionic C library, but Obscura's prebuilt binaries are compiled against glibc. This script solves the incompatibility by:
+Termux 使用 Android 的 Bionic C 库，而 Obscura 官方预编译二进制基于 glibc 编译，两者不兼容。本脚本的解决方案：
 
-1. Downloading the official `obscura-aarch64-linux.tar.gz` from GitHub Releases
-2. Installing the binaries to `$PREFIX/opt/obscura/`
-3. Creating glibc wrapper scripts that use `ld-linux-aarch64.so.1` as the dynamic linker
-4. Symlinking `obscura` and `obscura-worker` into `$PREFIX/bin/`
+1. 从 GitHub Releases 下载官方 `obscura-aarch64-linux.tar.gz`
+2. 将二进制安装到 `$PREFIX/opt/obscura/`
+3. 创建 glibc wrapper 脚本，使用 `ld-linux-aarch64.so.1` 作为动态链接器
+4. 在 `$PREFIX/bin/` 创建 symlink，使 `obscura` 和 `obscura-worker` 可直接调用
 
-## Requirements
+## 环境要求
 
-- **Termux** on Android (aarch64 / ARM64)
-- **glibc** package installed:
+- Android 设备上的 **Termux**（aarch64 / ARM64 架构）
+- 已安装 **glibc** 包：
 
 ```bash
 pkg install glibc-repo
 pkg install glibc
 ```
 
-## Features
+## 功能特性
 
-- **Auto-update**: detects installed vs latest version, skips if already up to date
-- **One-command install**: single script, no extra dependencies beyond `curl` and `tar`
-- **Clean uninstall**: `remove` argument cleans up everything
+- **自动更新**：检测已安装版本与最新版本，已是最新则跳过
+- **一键安装**：单脚本完成，仅依赖 `curl` 和 `tar`
+- **彻底卸载**：`remove` 参数清理所有文件
 
-## Usage
+## 使用示例
 
 ```bash
-# Check version
+# 查看版本
 obscura -V
 
-# Fetch a page and dump as markdown
+# 抓取页面并导出为文本
 obscura fetch https://example.com --dump text
 
-# Start CDP server (Puppeteer / Playwright compatible)
+# 启动 CDP 服务器（兼容 Puppeteer / Playwright）
 obscura serve --port 9222
 
-# Stealth mode
+# 隐身模式
 obscura --stealth fetch https://example.com
 ```
 
-## Alternative
+## 许可
 
-If you prefer a `.deb` package approach with bionic build support, see [zexjpg/obscura-termux](https://github.com/zexjpg/obscura-termux).
-
-## License
-
-This installer script is provided as-is. Obscura itself is developed by [h4ckf0r0day](https://github.com/h4ckf0r0day/obscura).
+本安装脚本按原样提供。Obscura 本身由 [h4ckf0r0day](https://github.com/h4ckf0r0day/obscura) 开发。
