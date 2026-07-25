@@ -7,13 +7,13 @@ This installer uses the **upstream glibc binary directly** from the official Obs
 ## Quick Install
 
 ```bash
-bash -c "$(curl -L https://raw.githubusercontent.com/zheng-sheng/obscura-termux-install/main/install-obscura.sh)"
+bash -c "$(curl -L https://raw.githubusercontent.com/zexjpg/obscura-termux-install/main/install-obscura.sh)"
 ```
 
 ## Uninstall
 
 ```bash
-bash -c "$(curl -L https://raw.githubusercontent.com/zheng-sheng/obscura-termux-install/main/install-obscura.sh)" remove
+bash -c "$(curl -L https://raw.githubusercontent.com/zexjpg/obscura-termux-install/main/install-obscura.sh)" remove
 ```
 
 ## How It Works
